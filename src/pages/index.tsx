@@ -9,6 +9,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import LoadingSpinner from "~/components/loading";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
@@ -22,6 +23,14 @@ const CreatePostWizard = () => {
     api.posts.create.useMutation({
       onSuccess: () => {
         void ctx.posts.getAll.invalidate();
+      },
+      onError: (err) => {
+        const errorsMsg = err.data?.zodError?.fieldErrors.content;
+        if (errorsMsg && errorsMsg[0]) {
+          toast.error(errorsMsg[0]);
+        } else {
+          toast.error("Something went wrong. Please try again later.");
+        }
       },
     });
 
@@ -44,15 +53,26 @@ const CreatePostWizard = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         disabled={isPosting}
-      />
-      <button
-        onClick={() => {
-          createPost({ content: input });
-          setInput("");
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            createPost({ content: input });
+            setInput("");
+          }
         }}
-      >
-        Post
-      </button>
+      />
+      {input !== "" && (
+        <button
+          onClick={() => {
+            createPost({ content: input });
+            setInput("");
+          }}
+          disabled={isPosting}
+        >
+          Post
+        </button>
+      )}
+
+      {isPosting && <LoadingSpinner />}
     </div>
   );
 };
