@@ -22,6 +22,8 @@ const CreatePostWizard = () => {
         alt="Profile Image"
         height={56}
         width={56}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0dnffAwADNQGPiCXt9AAAAABJRU5ErkJggg=="
       />
       <input
         placeholder="What's on your mind? (In emojis)"
@@ -42,6 +44,8 @@ const PostView = (props: PostWithUser) => {
         className="h-14 w-14 rounded-full"
         height={56}
         width={56}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0dnffAwADNQGPiCXt9AAAAABJRU5ErkJggg=="
       />
       <div className="flex flex-col ">
         <div className="flex gap-1 text-slate-300">
