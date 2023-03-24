@@ -1,4 +1,4 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, useAuth, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 
 import { type RouterOutputs, api } from "~/utils/api";
@@ -16,6 +16,8 @@ dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
   const { user } = useUser();
+
+  const { signOut } = useAuth();
 
   const [input, setInput] = useState<string>("");
 
@@ -40,15 +42,18 @@ const CreatePostWizard = () => {
 
   return (
     <div className="flex w-full gap-4">
-      <Image
-        className="h-14 w-14 rounded-full"
-        src={user.profileImageUrl}
-        alt="Profile Image"
-        height={56}
-        width={56}
-        placeholder="blur"
-        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0dnffAwADNQGPiCXt9AAAAABJRU5ErkJggg=="
-      />
+      <button>
+        <Image
+          className="h-14 w-14 rounded-full"
+          src={user.profileImageUrl}
+          alt="Profile Image"
+          height={56}
+          width={56}
+          placeholder="blur"
+          onClick={() => signOut()}
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN0dnffAwADNQGPiCXt9AAAAABJRU5ErkJggg=="
+        />
+      </button>
       <input
         placeholder="What's on your mind? (In emojis)"
         className="grow bg-transparent outline-none"
