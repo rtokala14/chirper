@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { PageLayout } from "~/components/layout";
 
 function PostPage() {
   return (
@@ -6,11 +7,11 @@ function PostPage() {
       <Head>
         <title>Chirper | Post</title>
       </Head>
-      <main className="flex h-screen justify-center">
+      <PageLayout>
         <div className="h-full w-full border-x border-slate-400 md:max-w-2xl">
           Post View
         </div>
-      </main>
+      </PageLayout>
     </>
   );
 }
